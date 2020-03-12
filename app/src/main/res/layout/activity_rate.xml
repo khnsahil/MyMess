@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Rate">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please give your Review for"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:text="Ambuja Messs"
+        android:id="@+id/tv_mess_name"
+        />
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:id="@+id/rating"
+        />
+    <Button
+        android:layout_marginTop="40dp"
+        android:id="@+id/bt_submit"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:background="@drawable/white_roundable_button"
+        android:layout_below="@id/rating"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>
