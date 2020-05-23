@@ -83,6 +83,7 @@ public class AddSurvey extends AppCompatActivity {
 
                     Toast.makeText(AddSurvey.this, "Survey Successfully Added", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(AddSurvey.this,HomeActivity.class));
+                    finish();
 
 
                 }
@@ -177,6 +178,7 @@ public class AddSurvey extends AppCompatActivity {
         {
             Intent intent=new Intent(AddSurvey.this, LoginActivity.class);
             startActivity(intent);
+            finish();
             Log.d(TAG, "checkCurrentUser: no user logged in");
         }
 

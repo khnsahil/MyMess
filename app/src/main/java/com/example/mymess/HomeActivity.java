@@ -155,7 +155,7 @@ public class HomeActivity extends AppCompatActivity implements IAdapterClicked {
         if (user==null)
         {
             Intent intent=new Intent(mContext,LoginActivity.class);
-            startActivity(intent);
+            startActivity(intent);finish();
             Log.d(TAG, "checkCurrentUser: no user logged in");
         }
 
@@ -182,6 +182,7 @@ public class HomeActivity extends AppCompatActivity implements IAdapterClicked {
         intent.putExtra("price",restaurantArrayList.get(position).getPrice());
         intent.putExtra("rating",restaurantArrayList.get(position).getRating());
         intent.putExtra("image",restaurantArrayList.get(position).getProfile_pic());
-        startActivity(intent);
+        intent.putExtra("res_id",restaurantArrayList.get(position).getRes_id());
+        startActivity(intent);finish();
     }
 }

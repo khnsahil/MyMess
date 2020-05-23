@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mymess.models.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyMenuRvAdapter extends RecyclerView.Adapter<MyMenuRvAdapter.ViewHolder> {
@@ -83,5 +84,19 @@ public class MyMenuRvAdapter extends RecyclerView.Adapter<MyMenuRvAdapter.ViewHo
     }
 
     //8602 606 409
+
+    public void removeItem(int position) {
+        menuList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(MenuItem item, int position) {
+        menuList.add(position, item);
+        notifyItemInserted(position);
+    }
+
+    public List<MenuItem> getData() {
+        return menuList;
+    }
 
 }

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MessScreenActivity extends AppCompatActivity {
     private static final String TAG = "MessScreenActivity";
     TextView mess_name,mess_type,rating,timing,price,dish;
+    String res_id;
 
 
     @Override
@@ -27,6 +28,7 @@ public class MessScreenActivity extends AppCompatActivity {
 
         final Intent intent=getIntent();
         final String name=intent.getStringExtra("name");
+        res_id=intent.getStringExtra("res_id");
         mess_name.setText(intent.getStringExtra("name"));
         mess_type.setText(intent.getStringExtra("type"));
         timing.setText(intent.getStringExtra("timing")+" \n Timing");
@@ -39,7 +41,12 @@ public class MessScreenActivity extends AppCompatActivity {
         findViewById(R.id.rel_vote).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MessScreenActivity.this,FillSurvey.class));
+
+                Intent intent1=new Intent(MessScreenActivity.this,FillSurvey.class);
+                intent1.putExtra("name",name);
+                intent1.putExtra("res_id",res_id);
+                Log.d(TAG, "onCreate: name="+name);
+                startActivity(intent1);
             }
         });
 
@@ -48,6 +55,7 @@ public class MessScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent1=new Intent(MessScreenActivity.this,Rate.class);
                 intent1.putExtra("name",name);
+                intent1.putExtra("res_id",res_id);
                 Log.d(TAG, "onCreate: name="+name);
                 startActivity(intent1);
             }
@@ -60,6 +68,8 @@ public class MessScreenActivity extends AppCompatActivity {
                 Intent intent1=new Intent(MessScreenActivity.this,MarkInterest.class);
                 intent1.putExtra("name",name);
                 intent1.putExtra("dish",ser_dish);
+                intent1.putExtra("dish",ser_dish);
+                intent1.putExtra("res_id",res_id);
                 Log.d(TAG, "onCreate: name="+name);
                 startActivity(intent1);
             }
@@ -72,6 +82,7 @@ public class MessScreenActivity extends AppCompatActivity {
                 Intent intent1=new Intent(MessScreenActivity.this,FullMenu.class);
                 intent1.putExtra("name",name);
                 intent1.putExtra("dish",ser_dish);
+                intent1.putExtra("res_id",res_id);
                 Log.d(TAG, "onCreate: name="+name);
                 startActivity(intent1);
             }

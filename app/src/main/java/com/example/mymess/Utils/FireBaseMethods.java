@@ -247,7 +247,7 @@ public class FireBaseMethods {
     public void addNewUser(String email, String user_name, String description, String website, String profile_photo)
     {
 
-        User user=new User(email,1, userID,user_name,"user");
+        User user=new User(userID,1, email,user_name,"user");
 
         myRef.child(mContext.getString(R.string.dbname_user)).child(userID).setValue(user);
 
@@ -323,8 +323,9 @@ public class FireBaseMethods {
     public void addNewRestaurant(String name, String type, String time, String rating, String price)
     {
 
-        Restaurant restaurant=new Restaurant(name,type,time,price,rating,"https://www.chatelaine.com/wp-content/uploads/2019/01/canada-new-food-guide-2019.jpeg");
         String mResId = myRef.push().getKey();
+        Restaurant restaurant=new Restaurant(name,type,time,price,rating,"https://www.chatelaine.com/wp-content/uploads/2019/01/canada-new-food-guide-2019.jpeg",mResId);
+
 
         myRef.child(mContext.getString(R.string.dbname_restaurant)).child(mResId).setValue(restaurant);
 

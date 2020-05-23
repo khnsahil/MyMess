@@ -40,16 +40,19 @@ public class FillSurvey extends AppCompatActivity {
 
     RadioGroup radioGroup;
     RadioButton rb1,rb2,rb3,rb4;
-    TextView date;
+    TextView date,mess_name;
 
     String userId="";
 
     Map<String, String> objectMap;
+    private String res_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_survey);
 
+        mess_name=findViewById(R.id.tv_mess_name);
         radioGroup=findViewById(R.id.rg);
         rb1=findViewById(R.id.rb1);
         rb2=findViewById(R.id.rb2);
@@ -70,7 +73,11 @@ public class FillSurvey extends AppCompatActivity {
         final String tomorrowAsString = dateFormat.format(tomorrow);
         String surveyID=myRef.push().getKey();
 
-        String res_id="-M-xlv43EDQCoV1m73bo";
+        final Intent intent=getIntent();
+        final String name=intent.getStringExtra("name");
+        res_id=intent.getStringExtra("res_id");
+        mess_name.setText(intent.getStringExtra("name"));
+        //String res_id="-M-xlv43EDQCoV1m73bo";
 
 
         try{
@@ -114,7 +121,7 @@ public class FillSurvey extends AppCompatActivity {
                     int r_id=radioGroup.getCheckedRadioButtonId();
                     RadioButton radioButton=(RadioButton) findViewById(r_id);
 
-                    String res_id="-M-xlv43EDQCoV1m73bo";
+                    //String res_id="-M-xlv43EDQCoV1m73bo";
 
                     if (objectMap!=null)
                     {
@@ -123,7 +130,7 @@ public class FillSurvey extends AppCompatActivity {
 
                         Toast.makeText(FillSurvey.this, "Your Response is successfully submitted", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(FillSurvey.this,HomeActivity.class));
-
+                        finish();
                     }
 
 
@@ -202,7 +209,7 @@ public class FillSurvey extends AppCompatActivity {
         if (user==null)
         {
             Intent intent=new Intent(FillSurvey.this, LoginActivity.class);
-            startActivity(intent);
+            startActivity(intent);finish();
             Log.d(TAG, "checkCurrentUser: no user logged in");
         }
 

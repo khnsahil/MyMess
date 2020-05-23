@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,8 @@ public class FullMenu extends AppCompatActivity {
     RecyclerView recyclerView;
     MyMenuRvAdapter myMenuRvAdapter;
     Context context=FullMenu.this;
+    TextView name;
+    String res_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,15 +50,43 @@ public class FullMenu extends AppCompatActivity {
 
 
         setupFirebaseAuth();
-        String res_id="-M-xlv43EDQCoV1m73bo";
+
+        name=findViewById(R.id.tv_mess_name);
+        Intent intent = getIntent();
+        name.setText(intent.getStringExtra("name"));
+        res_id=intent.getStringExtra("res_id");
+
+       // String res_id="-M-xlv43EDQCoV1m73bo";
         Query query = myRef.child("menu").child(res_id);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                objectMap = (HashMap<String, Double>) dataSnapshot.getValue();
-                Log.d(TAG, "onDataChange: objmap "+objectMap);
-                if (objectMap!=null) init();
+
+                for (DataSnapshot snapshot:dataSnapshot.getChildren())
+                {
+                    MenuItem menuItem=new MenuItem();
+                    for (DataSnapshot snapshot1:snapshot.getChildren())
+                    {
+                        if (snapshot1.getKey().equals("price")) menuItem.setPrice(Double.parseDouble(snapshot1.getValue().toString()));
+                        else  menuItem.setName(snapshot1.getValue().toString());
+                        //Log.d(TAG, "onDataChange: inner most "+snapshot1.toString());
+                    }
+
+                    Log.d(TAG, "onDataChange: my menu item: "+menuItem.toString());
+                    list.add(menuItem);
+//
+//                    Log.d(TAG, "onDataChange: objmap "+snapshot.getValue().toString());
+//                    //MenuItem menuItem=(MenuItem) snapshot.getValue(MenuItem.class);
+//                    //objectMap = (HashMap<String, Integer>) snapshot.getValue();
+//
+//                    if (objectMap!=null) init();
+//                    Log.d(TAG, "onDataChange: menu item: "+objectMap.toString());
+                }
+
+                // if (!list.isEmpty()) init();
+                init();
+
             }
 
             @Override
@@ -72,14 +103,14 @@ public class FullMenu extends AppCompatActivity {
     private void init()
     {
         Log.d(TAG, "init: called");
-        for (Map.Entry mapel:objectMap.entrySet())
-        {
-            String key=(String) mapel.getKey();
-            Double val=Double.parseDouble(mapel.getValue().toString());
-
-            list.add(new MenuItem(key,val));
-
-        }
+//        for (Map.Entry mapel:objectMap.entrySet())
+//        {
+//            String key=(String) mapel.getKey();
+//            Double val=Double.parseDouble(mapel.getValue().toString());
+//
+//            list.add(new MenuItem(key,val));
+//
+//        }
 
         recyclerView=findViewById(R.id.rv_menu);
         myMenuRvAdapter=new MyMenuRvAdapter(list,context);
@@ -155,7 +186,7 @@ public class FullMenu extends AppCompatActivity {
         if (user==null)
         {
             Intent intent=new Intent(FullMenu.this, LoginActivity.class);
-            startActivity(intent);
+            startActivity(intent);finish();
             Log.d(TAG, "checkCurrentUser: no user logged in");
         }
 

@@ -26,7 +26,7 @@ public class Rate extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
 
-    String userId="";
+    String userId="",res_id;
     RatingBar ratingBar;
     TextView mess_name;
 
@@ -43,15 +43,17 @@ public class Rate extends AppCompatActivity {
         Intent intent=getIntent();
         Log.d(TAG, "onCreate: rate"+intent.getStringExtra("name"));
         mess_name.setText(intent.getStringExtra("name"));
+        res_id=intent.getStringExtra("res_id");
 
-        final String res_id="-M-xlv43EDQCoV1m73bo";
+
+       // final String res_id="-M-xlv43EDQCoV1m73bo";
 
         findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myRef.child("rating").child(res_id).child(userId).child("stars").setValue(ratingBar.getRating());
                 Toast.makeText(Rate.this, "Rating Successfully submited", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Rate.this,HomeActivity.class));
+                startActivity(new Intent(Rate.this,HomeActivity.class));finish();
 
             }
         });
@@ -114,7 +116,7 @@ public class Rate extends AppCompatActivity {
         if (user==null)
         {
             Intent intent=new Intent(Rate.this, LoginActivity.class);
-            startActivity(intent);
+            startActivity(intent);finish();
             Log.d(TAG, "checkCurrentUser: no user logged in");
         }
 

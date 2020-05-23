@@ -10,6 +10,9 @@ public class MenuItem {
         this.price = price;
     }
 
+    public MenuItem() {
+    }
+
     public String getName() {
         return name;
     }

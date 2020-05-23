@@ -31,7 +31,7 @@ public class MarkInterest extends AppCompatActivity {
     RadioButton rb1, rb2;
     RadioGroup radioGroup;
 
-    String userId="";
+    String userId="",res_id;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -55,6 +55,8 @@ public class MarkInterest extends AppCompatActivity {
         Intent intent = getIntent();
         dish.setText(intent.getStringExtra("dish"));
         name.setText(intent.getStringExtra("name"));
+        res_id=intent.getStringExtra("res_id");
+
 
         setupFirebaseAuth();
 
@@ -73,7 +75,7 @@ public class MarkInterest extends AppCompatActivity {
                 int r_id=radioGroup.getCheckedRadioButtonId();
                 RadioButton radioButton=(RadioButton) findViewById(r_id);
 
-                String res_id="-M-xlv43EDQCoV1m73bo";
+               // String res_id="-M-xlv43EDQCoV1m73bo";
 
 
                     myRef.child("interest").child(res_id).child(todayAsString).child(userId).setValue(radioButton.getTag());
@@ -82,7 +84,7 @@ public class MarkInterest extends AppCompatActivity {
                     Toast.makeText(MarkInterest.this, "Your Response is successfully submitted", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MarkInterest.this,HomeActivity.class));
 
-
+                finish();
 
 
 
@@ -172,7 +174,7 @@ public class MarkInterest extends AppCompatActivity {
         if (user==null)
         {
             Intent intent=new Intent(MarkInterest.this, LoginActivity.class);
-            startActivity(intent);
+            startActivity(intent);finish();
             Log.d(TAG, "checkCurrentUser: no user logged in");
         }
 
